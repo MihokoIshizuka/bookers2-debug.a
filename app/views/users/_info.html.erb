@@ -18,6 +18,11 @@
     <% end %>
     <% end %>
     </th>
+    <th>
+      <% unless @user.id == current_user.id %>
+        <% if @haveRoom == true %>
+          <%= link_to "ダイレクトメッセージ", room_path
+    </th>
   </tr>
   <tr>
     <th>follows: <%= link_to "#{user.followings.count}", user_followings_path(user.id) %></th>
