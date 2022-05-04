@@ -4,6 +4,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @users = current_user.followings & current_user.followers if signed_in?
     @books = @user.books
     @book = Book.new
   end

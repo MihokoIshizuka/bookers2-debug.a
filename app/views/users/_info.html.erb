@@ -19,9 +19,9 @@
     <% end %>
     </th>
     <th>
-      <% unless @user.id == current_user.id %>
-        <% if @haveRoom == true %>
-          <%= link_to "ダイレクトメッセージ", room_path
+      <% if current_user != user %>
+        <%=link_to 'chatを始める', chat_path(user.id) %>
+      <% end %>
     </th>
   </tr>
   <tr>

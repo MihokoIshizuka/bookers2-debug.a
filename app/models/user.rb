@@ -35,6 +35,10 @@ class User < ApplicationRecord
   def following?(user)
     followings.include?(user)
   end
+  
+  def matchers
+    followings & followers
+  end
 
   def self.looks(search, word)
     if search == "perfect_match"
