@@ -6,17 +6,23 @@ class BooksController < ApplicationController
     @user = User.find(@book.user_id)
     @nbook = Book.new
     @book_comment = BookComment.new
+    unless ViewCount.find_by(user_id: current_user.id, book_id: @book.id)
+      current_user.view_counts.create(book_id: @book.id)
+    end
   end
 
   def index
     to  = Time.current.at_end_of_day
     from  = (to - 6.day).at_beginning_of_day
-    @books = Book.all.sort {|a,b| 
-      b.favorites.where(created_at: from...to).size <=> 
+    @books = Book.all.sort {|a,b|
+      b.favorites.where(created_at: from...to).size <=>
       a.favorites.where(created_at: from...to).size
     }
     @book = Book.new
     @user = current_user
+    unless ViewCount.find_by(user_id: current_user.id)
+      current_user.view_counts.create
+    end
   end
 
   def create
